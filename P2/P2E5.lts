@@ -1,0 +1,13 @@
+const BufferSize = 2
+
+BUFFER = BUFFER[0],
+BUFFER[i:0..BufferSize] = 	(when (i < 5) send -> BUFFER[i+1]
+							|when (i > 0) receive -> BUFFER[i-1]
+							|when (i == 5) producerblocked -> BUFFER[i]
+							).
+
+PRODUCER = (send -> PRODUCER).
+
+CONSUMER = (receive -> CONSUMER).
+
+||PROTOCOL = (PRODUCER || CONSUMER || BUFFER).

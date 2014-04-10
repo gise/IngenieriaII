@@ -1,0 +1,13 @@
+const M = 2 /* Cantidad de porciones */
+const S = 6 /* Cantidad de salvajes */
+
+COOK = (cook -> COOK).
+
+SAVAGE = (eat -> SAVAGE).
+
+POT = POT[M],
+POT[i:0..M] = 	(when (i == 0) cook -> POT
+				|when (i > 0) eat -> POT[i-1]
+				).
+
+||DINING = (COOK || s[1..S]:SAVAGE || POT)/{s[1..S].eat/eat}.
