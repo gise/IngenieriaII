@@ -1,0 +1,46 @@
+/* Practico 2, Ejercicio 2 */
+
+/*SEMAPHORE = SEMA[0],
+SEMA[v:1..K] =  (acquireRead 				-> SEMA[v+1]
+				|acquireWrite				-> SEMA[v+1]
+				|when (v > 0) releaseRead 	-> SEMA[v-1]
+				|when (v > 0) releaseWrite 	-> SEMA[v-1]
+				).
+RESOURSE = ({read, write} -> RESOURSE). 
+
+||SHARED_RESOURSE = (RESOURSE || SEMAPHORE). */
+
+/* Lo siguiente proviene del capitulo 7 seccion 5.1. */
+
+const K = 1   /* Cantidad maxima de procesos que pueden estar accediento simultaneamente al recurso */
+const M = 10  /* Cantidad de escritores */
+const N = 10  /* Cantidad de lectores */
+const False = 0
+const True = 1
+range Bool = False..True
+
+RW_LOCK = RW[0][False],
+RW[readers:0..N][writing:Bool] = 
+	(when (!writing && readers<N)
+		acquireRead 	-> RW[readers+1][writing]
+	|releaseRead 		-> RW[readers-1][writing]
+	|when (readers == 0 && !writing)
+		acquireWrite 	-> RW[readers][True]
+	|releaseWrite 		-> RW[readers][False]
+	).
+
+property SAFE_RW
+	=   (when (K>0) acquireRead 	-> READING[1]
+		|when (K>0) acquireWrite 	-> WRITING
+		|when (K==0) {acquireWrite,acquireRead} -> ERROR		
+),
+
+READING[i:1..N]
+	=   (when (i<K) acquireRead		-> READING[i+1]
+		|when (i>1) releaseRead 	-> READING[i-1]
+		|when (i==1) releaseRead 	-> SAFE_RW
+		),
+WRITING = (releaseWrite -> SAFE_RW).
+
+||READWRITELOCK = (RW_LOCK || SAFE_RW).
+

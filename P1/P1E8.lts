@@ -1,0 +1,19 @@
+const Frec= 108
+const MaxFrec= 108
+const MinFrec= 88
+
+RADIO=(on -> ON),
+ON=(reset -> SEARCHFREC[Frec]),
+SEARCHFREC[i:88..108]=  (station -> (show[i] -> CHOICE[i]
+									|off -> RADIO)
+						|notstation -> (scan -> CHECK[i]
+										|off -> RADIO )
+						|off -> RADIO),
+
+CHECK[i:88..108]=  (when (i>88) show[i] -> SEARCHFREC[i-1]
+					|when (i==88) show[i] -> ON
+					),
+
+CHOICE[i:88..108]=  (listenStation -> CHOICE[i]
+					|scan -> CHECK[i]
+					).

@@ -1,0 +1,3 @@
+TRIGGER = ( trigger -> UNO),
+UNO = ( uno -> trigger -> CERO),
+CERO = ( cero -> TRIGGER).

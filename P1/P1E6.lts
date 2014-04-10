@@ -1,0 +1,14 @@
+const N = 5
+range T = 0..9
+SENSOR = (in[N] -> ESTADO[N]),
+ESTADO[i:T] =   (when (i<2) bajo -> REGULADOR[i]
+				| when (i>8) alto -> REGULADOR[i]
+				| when (2 <= i <= 8) normal -> REGULADOR[i]
+				),
+REGULADOR[i:T] = (when (i<2) subirNivel -> ESTADO[i+1]
+				 |when (i>8) bajarNivel -> ESTADO[i-1]
+				 |when (2 <= i <= 8) esperar -> ALEATORIO[i]
+				 ),
+ALEATORIO[i:T] = (subirNivel -> ESTADO[i+1]
+				 |bajarNivel -> ESTADO[i-1]
+				 ). 

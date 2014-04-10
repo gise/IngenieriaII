@@ -1,0 +1,35 @@
+const MaxP= 4
+range T= 0..MaxP
+range H= 9..18
+
+VAR= VAR[0],
+VAR[u:T]=   (when (u<MaxP) increment -> VAR[u+1]
+			|when (u>0) decrement -> VAR[u-1]
+			|when (u==0) close -> VAR[u]
+			).
+/*
+LOCK= (acquire->release->LOCK).
+||LOCKVAR = (LOCK || VAR).
+*/
+
+EAST=  (open -> increment -> EAST). 
+
+WEST= (decrement -> WEST).
+
+DIRECTOR = (open -> DIRECTOR
+			| close -> DIRECTOR).
+
+||MUSEO= (EAST || WEST || VAR || DIRECTOR).
+
+
+/* version facil sin contar gente 
+PUERTA = (abrir -> PUERTA).
+
+CONTROL = (abrir_museo -> ENTRADA_HABILITADA, west.abrir ->  CONTROL),
+ENTRADA_HABILITADA = (east.abrir -> ENTRADA_HABILITADA | west.abrir -> ENTRADA_HABILITADA 
+						|cerrar_museo -> CONTROL).
+
+DIRECTOR = (abrir_museo -> DIRECTOR | cerrar_museo -> DIRECTOR).
+
+||MUSEO= ({east, west}:PUERTA || CONTROL || DIRECTOR).
+*/

@@ -1,0 +1,17 @@
+const Precio= 15
+const Saldo=0
+const SaldoMax = 30
+set M= {[5], [10], [20]}
+
+MAQUINADESALDO = MAQUINADESALDO[10],
+MAQUINADESALDO[i:0..SaldoMax]= (when (i<SaldoMax-5) ingresar5 -> MAQUINADESALDO[i+5]
+								|when (i<SaldoMax-10) ingresar10 -> MAQUINADESALDO[i+10]
+								|when (i<SaldoMax-20) ingresar20 -> MAQUINADESALDO[i+20]
+								|when (i>=15) comprar -> GASEOSA[i]
+								|when (i>0) devolucion -> MAQUINADESALDO[0]
+								),
+
+GASEOSA[i:0..SaldoMax] = (when (i<30) && (i>=15) gaseosa -> darVuelto -> MAQUINADESALDO[0]
+						 |when (i>=30) gaseosa -> GASEOSA[i-15]
+						 ).
+

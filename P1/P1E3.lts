@@ -1,0 +1,23 @@
+MEETING = (hello -> converse -> goodbye -> STOP).
+
+JOB = (arrive -> work -> leave -> JOB).
+
+FOURTICK = (tick -> tick -> tick -> tick -> STOP).
+
+MOVE = (ahead -> TURN),
+TURN = (left -> STOP
+	   |right -> MOVE).
+
+PERSON = ( weekend -> sleep -> work -> PERSON
+		 | weekend -> sleep -> LAZY	
+		 ),
+LAZY = ( play -> PERSON
+	   | shop -> PERSON
+	   ).
+
+GAME = (three -> lose -> GAME
+	   | {one, two} -> WIN 
+	   ),
+WIN = (win -> GAME).
+
+DOUBLE = (in[i:1..3] -> out[i] -> DOUBLE). 
